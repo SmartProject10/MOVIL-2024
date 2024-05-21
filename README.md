@@ -77,3 +77,14 @@ To learn more about React Native, take a look at the following resources:
 - [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
 - [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
 - [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+
+
+#NOTAS ADICIONALES 
+- Tener android SDK platform 34
+- react native v 0.74
+- emulador de android 
+
+INIT PROYECT
+ npm install 
+ npm start -- --reset-cache
+ npm run android

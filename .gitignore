@@ -17,8 +17,8 @@ dist/
 *.log
 
 # Package files
-*.jar
-!gradle/wrapper/gradle-wrapper.jar
+# *.jar
+# !gradle/wrapper/gradle-wrapper.jar
 
 
 # Maven
