@@ -20,6 +20,8 @@ dist/
 # *.jar
 # !gradle/wrapper/gradle-wrapper.jar
 
+android/app/build/
+
 
 # Maven
 target/
@@ -48,6 +50,7 @@ Thumbs.db
 *.avi
 *.flv
 *.mov
+*.apk
 *.wmv
 .env
 
