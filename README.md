@@ -85,6 +85,6 @@ To learn more about React Native, take a look at the following resources:
 - emulador de android 
 
 INIT PROYECT
- npm install 
- npm start -- --reset-cache
- npm run android
+- npm install 
+- npm start -- --reset-cache
+- npm run android
