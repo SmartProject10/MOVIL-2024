@@ -1,4 +1,4 @@
-import {StyleSheet} from 'react-native';
+import {Dimensions, StyleSheet} from 'react-native';
 import {RFPercentage, RFValue} from 'react-native-responsive-fontsize';
 import {MyColor} from '../../../theme/AppTheme';
 
@@ -83,6 +83,19 @@ const EppsStyles = StyleSheet.create({
     fontSize: RFValue(12, 580),
     marginHorizontal: 20,
     color: MyColor.black,
+  },
+  containerRes: {
+    flexGrow: 1,
+    justifyContent: 'center',
+  },
+  row: {
+    flex: 1,
+    justifyContent: 'space-around',
+  },
+  item: {
+    flex: 1,
+    margin: 1,
+    maxWidth: '100%'
   },
 });
 
