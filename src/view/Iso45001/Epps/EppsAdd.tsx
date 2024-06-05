@@ -30,6 +30,7 @@ export const EppsAddScreen = ({}) => {
     setError,
     //FUNCTION
     addEpps,
+    navigationHome
   } = DI.resolve('EppsAddViewModel');
 
   const renderItem = item => (

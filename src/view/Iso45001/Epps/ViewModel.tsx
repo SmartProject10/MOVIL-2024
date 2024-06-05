@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {epps} from '../../../types/EppsTypes';
+import { useNavigation } from '@react-navigation/native';
 
 const EppsAddViewModel = ({}) => {
   const [selectedRazon, setSelectedRazon] = useState('');
@@ -7,6 +8,11 @@ const EppsAddViewModel = ({}) => {
   const [materiales, setMateriales] = useState('');
   const [arrayEpps, setArrayEpps] = useState<epps[]>([]);
   const [error, setError] = useState('');
+  const navigation = useNavigation();
+
+  const navigationHome = () => {
+    navigation.navigate('HomeScreen')
+  };
 
   const addEpps = () => {
     let obj: epps = {
@@ -16,7 +22,7 @@ const EppsAddViewModel = ({}) => {
     };
 
     if (!validEpps()) return;
-    
+
     setArrayEpps([...arrayEpps, obj]);
 
     setSelectedRazon('');
@@ -56,6 +62,7 @@ const EppsAddViewModel = ({}) => {
     setError,
     // FUNCTION
     addEpps,
+    navigationHome,
   };
 };
 
