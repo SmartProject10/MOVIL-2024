@@ -5,6 +5,8 @@ import {SafeAreaView, Text, TouchableOpacity, View} from 'react-native';
 import styles from './Styles';
 import DI from '../../di/ioc';
 import ListJobs from '../../components/Ficha/ListJobs';
+import {Icon} from '@rneui/base';
+import {MyColor} from '../../theme/AppTheme';
 
 interface Props extends StackScreenProps<HomeStackParamList, 'FichaScreen'> {}
 export const FichaScreen = ({navigation}: Props) => {
@@ -15,6 +17,32 @@ export const FichaScreen = ({navigation}: Props) => {
         <Text style={styles.textInit}>Bienvenido Ricardo</Text>
       </View>
 
+      <View style={styles.alert}>
+        <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center'}}>
+          <View style={{justifyContent: 'center'}}>
+            <View style={{justifyContent: 'center'}}>
+              <Icon
+                name="alert-circle-outline"
+                color={MyColor.black}
+                size={50}
+                type="ionicon"
+              />
+            </View>
+            <Text style={styles.textAlert}>
+            Tienes 5 solicitudes de empresas esperándote
+            </Text>
+            <TouchableOpacity onPress={() => navigation.navigate('JobsListScreen')}>
+              <Text
+                style={[
+                  styles.textAlert,
+                  {textDecorationLine: 'underline', marginBottom: 5},
+                ]}>
+                Ver mas
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </View>
       <View style={styles.container}>
         <ListJobs />
       </View>
