@@ -60,7 +60,7 @@ export default function ListJobs() {
 
   return (
     <View style={{flex: 1}}>
-      <View style={[styles.contentInit, {marginTop: 5}]}>
+      <View style={[styles.contentInit, {marginTop: 15}]}>
         <Text style={styles.labelJobs}>Tus empresas asociadas</Text>
       </View>
       <View style={styles.container}>
