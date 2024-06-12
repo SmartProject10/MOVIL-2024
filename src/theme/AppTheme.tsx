@@ -22,7 +22,9 @@ export const MyColor = {
   primaryGradent: '#bbffcb',
   colorTextgradent: '#00801f',
   redTenue: '#ffe4db',
-  primaryTem:'#FACF85'
+  primaryTem:'#FACF85',
+  blue:"#2980B9",
+  bluelabel:"#4799e6"
 };
 
 export const MyStyles = StyleSheet.create({

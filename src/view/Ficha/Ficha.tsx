@@ -31,7 +31,7 @@ export const FichaScreen = ({navigation}: Props) => {
             <Text style={styles.textAlert}>
             Tienes 5 solicitudes de empresas esperándote
             </Text>
-            <TouchableOpacity onPress={() => navigation.navigate('JobsListScreen')}>
+            <TouchableOpacity onPress={() => navigation.navigate('HomeScreen')}>
               <Text
                 style={[
                   styles.textAlert,
