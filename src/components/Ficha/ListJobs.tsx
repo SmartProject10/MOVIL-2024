@@ -46,7 +46,7 @@ export default function ListJobs() {
   const renderItem = ({item}) => (
     <TouchableOpacity
       style={styles.button}
-      onPress={() => navigation.navigate('HomeScreen')}>
+      onPress={() => navigation.navigate('FichaUserScreen')}>
       <View style={styles.imageContainer}>
         <Image
           style={styles.image}
