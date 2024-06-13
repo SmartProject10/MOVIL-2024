@@ -5,7 +5,7 @@ import {MyColor} from '../../theme/AppTheme';
 const FichaStyles = StyleSheet.create({
   content: {
     flex: 1,
-
+backgroundColor:MyColor.home,
     marginTop: 10,
   },
   contentInit: {

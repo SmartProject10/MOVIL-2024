@@ -6,10 +6,10 @@ const HomeStyles = StyleSheet.create({
   container: {
     paddingVertical: 10,
     backgroundColor: MyColor.home,
-    borderRadius: 10,
-    marginHorizontal: 8,
-    marginVertical: 5,
-    paddingHorizontal: 5,
+    
+    
+    
+    
     // Propiedades para la sombra en iOS
     shadowColor: '#000',
     shadowOffset: {width: 0, height: 4}, // Ajustado para sombra más desvanecida
@@ -51,7 +51,7 @@ const HomeStyles = StyleSheet.create({
     width: 120,
   },
   textIsoLabel: {
-    fontSize: RFValue(10,500),
+    fontSize: RFValue(13,500),
     color:MyColor.black,
     textAlign:'center',
     fontWeight:'bold'

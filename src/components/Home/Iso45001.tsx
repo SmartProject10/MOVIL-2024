@@ -20,43 +20,48 @@ export default function Iso45001() {
       iconName: 'headset',
       prop: 'ionicon',
       label: `Entrega de EPP's`,
-      color: '#00c6aa',
+      color: MyColor.primaryBlue,
       size: 40,
+      nav:"EppsAddScreen"
     },
     {
       iconName: 'document',
       prop: 'ionicon',
       label: 'Introduccion, reunion y capacitación',
-      color: '#828282',
+      color: MyColor.primaryBlue,
       size: 40,
+      nav:""
     },
     {
       iconName: 'cloud-offline',
       prop: 'ionicon',
       label: 'Registros sin conexion ',
-      color: '#2a2011',
+      color: MyColor.primaryBlue,
       size: 40,
+      nav:""
     },
     {
       iconName: 'clipboard-outline',
       prop: 'ionicon',
       label: 'Entrega de ATS, PETAR y otros',
-      color: '#1e91ed',
+      color: MyColor.primaryBlue,
       size: 40,
+      nav:""
     },
     {
       iconName: 'list',
       prop: 'ionicon',
       label: 'Inspecciones SST',
-      color: '#FAB336',
+      color: MyColor.primaryBlue,
       size: 40,
+      nav:"ListInspectScreen"
     },
 
     // Agrega más datos según sea necesario
   ];
   // Renderizar cada elemento de la lista como un botón con un icono
   const renderItem = ({item}) => (
-    <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('EppsAddScreen')}>
+    <TouchableOpacity style={styles.button} onPress={() => navigation.navigate(item.nav)}>
       <View style={{flex:1, flexDirection:'column', justifyContent:'center'}}>
         <View style={{height:'50%', justifyContent:'flex-end'}}>
           <Icon
@@ -118,6 +123,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginTop: 3,
     color: MyColor.black,
-    fontSize: RFValue(10, 500),
+    fontSize: RFValue(8, 500),
   },
 });

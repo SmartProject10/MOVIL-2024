@@ -4,6 +4,7 @@ import {HomeStackParamList} from '../../navigation/HomeStackNavigation';
 import {
   SafeAreaView,
   ScrollView,
+  StatusBar,
   Text,
   TouchableOpacity,
   View,
@@ -24,9 +25,19 @@ export const HomeScreen = ({navigation}: Props) => {
   ];
   return (
     <SafeAreaView style={{flex: 1}}>
+      <StatusBar animated={true} backgroundColor={MyColor.home} />
       <View style={styles.container}>
-        <Text style={styles.textIsoLabel}> {isoStandards.length <= 1 ? '' : 'ISO disponibles'}</Text>
-        <ScrollView contentContainerStyle={styles.header} horizontal={true}>
+        <View style={{flexDirection:'row', justifyContent:'center'}}>
+          <Icon
+            name="lock"
+            size={19}
+            type="feather"
+            color={MyColor.primaryBlue}
+            style={{marginLeft: 10, marginTop: 5, marginRight:10}}
+          />
+          <Text style={styles.textIsoLabel}>ISO 45001</Text>
+        </View>
+        {/* <ScrollView contentContainerStyle={styles.header} horizontal={true}>
           {isoStandards.map((iso, index) => (
             <TouchableOpacity key={`${index}-T`}>
               <View key={index} style={styles.box}>
@@ -41,7 +52,7 @@ export const HomeScreen = ({navigation}: Props) => {
               </View>
             </TouchableOpacity>
           ))}
-        </ScrollView>
+        </ScrollView> */}
       </View>
       <View
         style={{
