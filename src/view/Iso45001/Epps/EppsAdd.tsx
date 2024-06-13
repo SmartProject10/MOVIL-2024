@@ -1,190 +1,258 @@
-import React, {useEffect} from 'react';
-import {FlatList, ScrollView, Text, TouchableOpacity, View} from 'react-native';
-import {HomeStackParamList} from '../../navigation/HomeStackNavigation';
-import styles from './Styles';
-import {Picker} from '@react-native-picker/picker';
+import * as React from 'react';
 import DI from '../../../di/ioc';
-import {Button} from '@rneui/themed';
+import {View, StyleSheet, ScrollView} from 'react-native';
+import {
+  Appbar,
+  Button,
+  Card,
+  Divider,
+  Text,
+  TextInput,
+} from 'react-native-paper';
+import {Picker} from '@react-native-picker/picker';
+import {MyColor} from '../../../theme/AppTheme';
 import CardComponent from '../../../components/Card/Card';
 import {
   ALERT_TYPE,
   AlertNotificationRoot,
-  Dialog as DialogNoti,
   Toast,
 } from 'react-native-alert-notification';
-import { MyColor } from '../../../theme/AppTheme';
+import GenericPicker from '../../../components/Picker/GenericPicker';
+import DropdownComponent from '../../../components/Picker/DropdownPicker';
+import MaterialCard from '../../../components/Material/MaterialCard';
 
-interface Props
-  extends StackScreenProps<HomeStackParamList, 'IndexIsoScreen'> {}
-export const EppsAddScreen = ({}) => {
+export const EppsAddScreen = ({navigation}) => {
   const {
-    //VARIABLES
+    // VARIABLES
     selectedRazon,
     setSelectedRazon,
     actividades,
     setonActividades,
     materiales,
     setMateriales,
+    sede,
+    setSede,
+    solicitante,
+    setSolicitante,
+    area,
+    setArea,
     arrayEpps,
     error,
     setError,
-    //FUNCTION
+    // FUNCTIONS
     addEpps,
-    navigationHome
+    navigationHome,
   } = DI.resolve('EppsAddViewModel');
 
   const renderItem = item => (
-    <View style={styles.item}>
-      <CardComponent
+    <View>
+      {/* <MaterialCard
+        image={'https://via.placeholder.com/100x80'}
         title={item.razon}
-        description={item.actividad}
-        materiales={item.materiales}
-      />
+        subtitle={item.actividad}
+        content={item.materiales}
+      /> */}
     </View>
   );
-
-  useEffect(() => {
+  React.useEffect(() => {
     if (error !== '') {
-      console.log('entre');
       Toast.show({
         type: ALERT_TYPE.DANGER,
         title: 'Error',
         textBody: error,
-
         autoClose: 1300,
       });
       setError('');
     }
   }, [error]);
 
-  useEffect(() => {
+  React.useEffect(() => {
     console.log(arrayEpps);
   }, [arrayEpps]);
+  // Array's de opciones
+  const razonOptions = [
+    {label: 'Seleccione una razón', value: ''},
+    {label: 'Desgaste', value: 'Desgaste'},
+    {label: 'Perdida', value: 'Perdida'},
+    {label: 'Robo', value: 'Robo'},
+    {label: 'Nueva dotación', value: 'Nueva dotación'},
+  ];
+  const actividadOptions = [
+    {label: 'Seleccione una actividad', value: ''},
+    {label: 'Trabajo en altura', value: 'Trabajo en altura'},
+    {label: 'Trabajo en soldadura', value: 'Trabajo en soldadura'},
+    {
+      label: 'Trabajo en espacio confinados',
+      value: 'Trabajo en espacio confinados',
+    },
+    {
+      label: 'Trabajo con carga electrica',
+      value: 'Trabajo con carga electrica',
+    },
+    {
+      label: 'Trabajo con materiales peligrosos',
+      value: 'Trabajo con materiales peligrosos',
+    },
+    {
+      label: 'Trabajo con sustancias peligrosos',
+      value: 'Trabajo con sustancias peligrosos',
+    },
+    {
+      label: 'Trabajo servicios generales',
+      value: 'Trabajo servicios generales',
+    },
+  ];
+  const materialOptions = [
+    {label: 'Seleccione un material', value: ''},
+    {label: 'Botas', value: 'Botas'},
+    {label: 'Casco', value: 'Casco'},
+    {label: 'Guantes', value: 'Guantes'},
+    {label: 'Pantalon', value: 'Pantalon'},
+    {label: 'Camisa', value: 'Camisa'},
+  ];
 
   return (
-    <ScrollView>
-      <View style={{flex: 1}}>
-        <Text style={styles.titleScreen}>Entrega de EPP's</Text>
+    <>
+      <Appbar.Header>
+        <Appbar.BackAction onPress={() => navigation.goBack()} />
+        <Appbar.Content title="Entrega de EPP's" />
+      </Appbar.Header>
 
-        <AlertNotificationRoot theme='dark'>
+      <ScrollView contentContainerStyle={styles.scrollContainer}>
+        <AlertNotificationRoot theme="dark">
           <View style={styles.container}>
-            <View style={styles.contentContainer}>
-              <View style={styles.padPicker}>
-                <Text style={styles.textEps}>Razón</Text>
-                <View style={styles.pickerContainer}>
-                  <Picker
-                    style={styles.picker}
+            <Card style={styles.cardContent}>
+              <Card.Content>
+                {/* <DropdownComponent /> */}
+                <View style={styles.row}>
+                  <TextInput
+                    label="Sede"
+                    value={sede}
+                    onChangeText={text => setSede(text)}
+                    style={styles.input}
+                  />
+                  <TextInput
+                    label="Solicitante"
+                    value={solicitante}
+                    onChangeText={text => setSolicitante(text)}
+                    style={styles.input}
+                  />
+                </View>
+                <View style={styles.row}>
+                  <TextInput
+                    label="Area"
+                    value={area}
+                    onChangeText={text => setArea(text)}
+                    style={styles.input}
+                  />
+                </View>
+                <View style={[styles.input, styles.pickerContainer]}>
+                  <GenericPicker
                     selectedValue={selectedRazon}
-                    onValueChange={(itemValue, itemIndex) =>
-                      setSelectedRazon(itemValue)
-                    }>
-                    <Picker.Item
-                      label="Seleccione una razón"
-                      value=""
-                      style={styles.placeholder}
-                    />
-
-                    <Picker.Item label="Desgaste" value="Desgaste" />
-                    <Picker.Item label="Perdida" value="Perdida" />
-                    <Picker.Item label="Robo" value="Robo" />
-                    <Picker.Item
-                      label="Nueva dotación"
-                      value="Nueva dotación"
-                    />
-                  </Picker>
+                    onValueChange={itemValue => setSelectedRazon(itemValue)}
+                    items={razonOptions}
+                  />
                 </View>
-              </View>
-              <View style={styles.padPicker}>
-                <Text style={styles.textEps}>Actividades de trabajo</Text>
-                <View style={styles.pickerContainer}>
-                  <Picker
-                    style={styles.picker}
-                    selectedValue={actividades}
-                    onValueChange={(itemValue, itemIndex) =>
-                      setonActividades(itemValue)
-                    }>
-                    <Picker.Item
-                      label="Seleccione una actividad"
-                      value=""
-                      style={styles.placeholder}
+                <View style={styles.row}>
+                  <View style={[styles.input, styles.pickerContainer]}>
+                    <GenericPicker
+                      selectedValue={actividades}
+                      onValueChange={itemValue => setonActividades(itemValue)}
+                      items={actividadOptions}
                     />
-
-                    <Picker.Item
-                      label="Trabajo en altura"
-                      value="Trabajo en altura"
-                    />
-                    <Picker.Item
-                      label="Trabajo en soldadura"
-                      value="Trabajo en soldadura"
-                    />
-                    <Picker.Item
-                      label="Trabajo en espacio confinados"
-                      value="Trabajo en espacio confinados"
-                    />
-                    <Picker.Item
-                      label="Trabajo con carga electrica"
-                      value="Trabajo con carga electrica"
-                    />
-                    <Picker.Item
-                      label="Trabajo con materiales peligrosos"
-                      value="Trabajo con materiales peligrosos"
-                    />
-                    <Picker.Item
-                      label="Trabajo con sustancias peligrosos"
-                      value="Trabajo con sustancias peligrosos"
-                    />
-                    <Picker.Item
-                      label="Trabajo servicios generales"
-                      value="Trabajo servicios generales"
-                    />
-                  </Picker>
+                  </View>
                 </View>
-              </View>
-              <View style={styles.padPicker}>
-                <Text style={styles.textEps}>Material</Text>
-                <View style={styles.pickerContainer}>
-                  <Picker
-                    style={styles.picker}
-                    selectedValue={materiales}
-                    onValueChange={(itemValue, itemIndex) =>
-                      setMateriales(itemValue)
-                    }>
-                    <Picker.Item
-                      label="Seleccione un material"
-                      value=""
-                      style={styles.placeholder}
+                <View style={styles.row}>
+                  <View style={[styles.input, styles.pickerContainer]}>
+                    <GenericPicker
+                      selectedValue={materiales}
+                      onValueChange={itemValue => setMateriales(itemValue)}
+                      items={materialOptions}
                     />
-
-                    <Picker.Item label="Botas" value="Botas" />
-                    <Picker.Item label="Casco" value="Casco" />
-                    <Picker.Item label="Guantes" value="Guantes" />
-                    <Picker.Item label="Pantalon" value="Pantalon" />
-                    <Picker.Item label="Camisa" value="Camisa" />
-                  </Picker>
+                  </View>
                 </View>
-              </View>
-              <View style={styles.buttonContainer}>
-                <TouchableOpacity
-                  style={styles.btnCan}
-                  onPress={() => navigationHome()}>
-                  <Text style={styles.textCanBtn}>Cancelar</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={styles.btnContinue}
-                  onPress={() => addEpps()}>
-                  <Text style={styles.textBtn}>Agregar</Text>
-                </TouchableOpacity>
-              </View>
-            </View>
-          </View>
-          <View style={styles.container2}>
-            <Text style={{color:MyColor.black}}>Lista de Epp's ( {arrayEpps.length} )</Text>
-            {arrayEpps.map((chunk, index) => (
-              <View key={index}>{renderItem(chunk)}</View>
-            ))}
+                <Divider />
+                <View style={{alignItems: 'flex-end', display: 'flex'}}>
+                  <Button
+                    style={{
+                      borderRadius: 4,
+                      width: 100,
+                      marginTop: 16,
+                    }}
+                    icon="plus-circle"
+                    mode="contained"
+                    onPress={() => addEpps()}>
+                    Agregar
+                  </Button>
+                </View>
+                <View style={{alignItems: 'flex-start', display: 'flex'}}>
+                  <Text
+                    style={{
+                      color: MyColor.black,
+                      fontSize: 16,
+                      fontWeight: 'bold',
+                      marginTop: 8,
+                    }}>
+                    Últimos materiales entregados ( {arrayEpps.length} )
+                  </Text>
+                  {arrayEpps.map((chunk, index) => (
+                    <View key={index}>{renderItem(chunk)}</View>
+                  ))}
+                </View>
+              </Card.Content>
+            </Card>
           </View>
         </AlertNotificationRoot>
-      </View>
-    </ScrollView>
+      </ScrollView>
+    </>
   );
 };
+
+const styles = StyleSheet.create({
+  scrollContainer: {
+    flexGrow: 1,
+  },
+  container: {
+    flex: 1,
+  },
+  card: {},
+  cardContent: {
+    borderRadius: 0,
+    elevation: 0,
+    height: '100%',
+  },
+  row: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 8, // Añade espacio entre las filas
+  },
+  inputContainer: {
+    marginBottom: 16, // Espacio entre cada input
+  },
+  label: {
+    fontSize: 14,
+    fontWeight: 'bold',
+    marginBottom: 4, // Espacio entre el label y el input
+  },
+  input: {
+    flex: 1,
+    marginRight: 3,
+    marginBottom: 10,
+    backgroundColor: 'white',
+  },
+  pickerContainer: {
+    borderWidth: 0,
+    borderColor: 'light',
+    borderRadius: 4,
+    marginTop: 6,
+  },
+  picker: {
+    height: 56, // Ajusta la altura del picker para que coincida con la de los TextInput
+    backgroundColor: 'transparent',
+    color: 'black',
+    display: 'flex',
+  },
+  mt_6: {
+    marginTop: 6,
+  },
+});

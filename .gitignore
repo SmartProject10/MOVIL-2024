@@ -21,7 +21,7 @@ dist/
 # !gradle/wrapper/gradle-wrapper.jar
 
 android/app/build/
-
+.gradle/
 
 # Maven
 target/

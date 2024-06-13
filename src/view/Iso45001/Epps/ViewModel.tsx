@@ -1,17 +1,20 @@
 import React, {useState} from 'react';
 import {epps} from '../../../types/EppsTypes';
-import { useNavigation } from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 
 const EppsAddViewModel = ({}) => {
   const [selectedRazon, setSelectedRazon] = useState('');
   const [actividades, setonActividades] = useState('');
   const [materiales, setMateriales] = useState('');
+  const [sede, setSede] = useState('');
+  const [solicitante, setSolicitante] = useState('');
+  const [area, setArea] = useState('');
   const [arrayEpps, setArrayEpps] = useState<epps[]>([]);
   const [error, setError] = useState('');
   const navigation = useNavigation();
 
   const navigationHome = () => {
-    navigation.navigate('HomeScreen')
+    navigation.navigate('HomeScreen');
   };
 
   const addEpps = () => {
@@ -19,6 +22,9 @@ const EppsAddViewModel = ({}) => {
       razon: selectedRazon,
       actividad: actividades,
       materiales: materiales,
+      sede: sede,
+      solicitante: solicitante,
+      area: area,
     };
 
     if (!validEpps()) return;
@@ -28,6 +34,9 @@ const EppsAddViewModel = ({}) => {
     setSelectedRazon('');
     setonActividades('');
     setMateriales('');
+    setSede('');
+    setSolicitante('');
+    setArea('');
   };
 
   const validEpps = (): boolean => {
@@ -45,7 +54,10 @@ const EppsAddViewModel = ({}) => {
       setError('El campo material no puede estar vacio');
       return false;
     }
-
+    if (area === '') {
+      setError('El campo area no puede estar vacio');
+      return false;
+    }
     return true;
   };
 
@@ -57,6 +69,12 @@ const EppsAddViewModel = ({}) => {
     setonActividades,
     materiales,
     setMateriales,
+    sede,
+    setSede,
+    solicitante,
+    setSolicitante,
+    area,
+    setArea,
     arrayEpps,
     error,
     setError,
