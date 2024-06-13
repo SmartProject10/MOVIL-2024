@@ -6,7 +6,7 @@ import {RFValue} from 'react-native-responsive-fontsize';
 import {MyColor} from '../../theme/AppTheme';
 export default function CardComponent({title, description, materiales}) {
   return (
-    <Card containerStyle={{borderRadius: 10}}>
+    <Card containerStyle={{borderRadius: 4, elevation: 0}}>
       <View style={styles.content}>
         <Text style={styles.title}>{title}</Text>
         <View>
@@ -27,7 +27,7 @@ export default function CardComponent({title, description, materiales}) {
 }
 
 const styles = StyleSheet.create({
-  content: {flex: 1, flexDirection: 'row', justifyContent:'space-between'},
+  content: {flex: 1, flexDirection: 'row', justifyContent: 'space-between'},
   title: {
     fontSize: RFValue(15, 500),
     fontWeight: 'bold',
@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
   },
   description: {
     marginBottom: 10,
-    
+
     fontSize: RFValue(12, 500),
     color: MyColor.black,
   },
