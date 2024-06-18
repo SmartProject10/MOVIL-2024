@@ -1,28 +1,24 @@
 import * as React from 'react';
 import DI from '../../../di/ioc';
-import {View, StyleSheet, ScrollView} from 'react-native';
+import {View, ScrollView, StatusBar, Alert} from 'react-native';
 import {
   Appbar,
   Button,
   Card,
-  DefaultTheme,
   Divider,
-  PaperProvider,
   Text,
   TextInput,
 } from 'react-native-paper';
-import {Picker} from '@react-native-picker/picker';
-import {MyColor, m3Theme} from '../../../theme/AppTheme';
-import CardComponent from '../../../components/Card/Card';
+import {MyColor} from '../../../theme/AppTheme';
 import {
   ALERT_TYPE,
   AlertNotificationRoot,
   Toast,
 } from 'react-native-alert-notification';
-import GenericPicker from '../../../components/Picker/GenericPicker';
 import DropdownComponent from '../../../components/Picker/DropdownPicker';
 import MaterialCard from '../../../components/Material/MaterialCard';
-
+import styles from './Styles';
+import CardComponent from '../../../components/Card/Card';
 export const EppsAddScreen = ({navigation}) => {
   const {
     // VARIABLES
@@ -43,17 +39,22 @@ export const EppsAddScreen = ({navigation}) => {
     setError,
     // FUNCTIONS
     addEpps,
-    navigationHome,
   } = DI.resolve('EppsAddViewModel');
-
+  const handleAdd = () => {
+    Alert.alert(
+      'Botón de agregar presionado para la tarjeta',
+    );
+    // Aquí puedes realizar cualquier acción que necesites con los datos recibidos
+  };
   const renderItem = item => (
     <View>
-      {/* <MaterialCard
-        image={'https://via.placeholder.com/100x80'}
-        title={item.razon}
-        subtitle={item.actividad}
-        content={item.materiales}
-      /> */}
+      <CardComponent
+        imageUri={'https://picsum.photos/700'}
+        title={item.materiales}
+        empresa={item.area}
+        razon={item.razon}
+        tipoTrabajo={item.actividad}
+        onAdd={handleAdd}></CardComponent>
     </View>
   );
   React.useEffect(() => {
@@ -73,14 +74,12 @@ export const EppsAddScreen = ({navigation}) => {
   }, [arrayEpps]);
   // Array's de opciones
   const razonOptions = [
-    {label: 'Seleccione una razón', value: ''},
     {label: 'Desgaste', value: 'Desgaste'},
     {label: 'Perdida', value: 'Perdida'},
     {label: 'Robo', value: 'Robo'},
     {label: 'Nueva dotación', value: 'Nueva dotación'},
   ];
   const actividadOptions = [
-    {label: 'Seleccione una actividad', value: ''},
     {label: 'Trabajo en altura', value: 'Trabajo en altura'},
     {label: 'Trabajo en soldadura', value: 'Trabajo en soldadura'},
     {
@@ -105,7 +104,6 @@ export const EppsAddScreen = ({navigation}) => {
     },
   ];
   const materialOptions = [
-    {label: 'Seleccione un material', value: ''},
     {label: 'Botas', value: 'Botas'},
     {label: 'Casco', value: 'Casco'},
     {label: 'Guantes', value: 'Guantes'},
@@ -115,7 +113,8 @@ export const EppsAddScreen = ({navigation}) => {
 
   return (
     <>
-      <Appbar.Header>
+      <StatusBar backgroundColor={'#fff'} barStyle={'dark-content'} />
+      <Appbar.Header mode="center-aligned">
         <Appbar.BackAction onPress={() => navigation.goBack()} />
         <Appbar.Content title="Entrega de EPP's" />
       </Appbar.Header>
@@ -125,15 +124,16 @@ export const EppsAddScreen = ({navigation}) => {
           <View style={styles.container}>
             <Card style={styles.cardContent}>
               <Card.Content>
-                {/* <DropdownComponent /> */}
                 <View style={styles.row}>
                   <TextInput
+                    disabled={true}
                     label="Sede"
                     value={sede}
                     onChangeText={text => setSede(text)}
                     style={styles.input}
                   />
                   <TextInput
+                    disabled={true}
                     label="Solicitante"
                     value={solicitante}
                     onChangeText={text => setSolicitante(text)}
@@ -148,30 +148,29 @@ export const EppsAddScreen = ({navigation}) => {
                     style={styles.input}
                   />
                 </View>
-                <View style={[styles.input, styles.pickerContainer]}>
-                  <GenericPicker
+                <View>
+                  <DropdownComponent
                     selectedValue={selectedRazon}
-                    onValueChange={itemValue => setSelectedRazon(itemValue)}
-                    items={razonOptions}
+                    data={razonOptions}
+                    placeholder={'Razón'}
+                    onSelect={itemValue => setSelectedRazon(itemValue)}
                   />
                 </View>
-                <View style={styles.row}>
-                  <View style={[styles.input, styles.pickerContainer]}>
-                    <GenericPicker
-                      selectedValue={actividades}
-                      onValueChange={itemValue => setonActividades(itemValue)}
-                      items={actividadOptions}
-                    />
-                  </View>
+                <View>
+                  <DropdownComponent
+                    selectedValue={actividades}
+                    data={actividadOptions}
+                    placeholder={'Actividades'}
+                    onSelect={itemValue => setonActividades(itemValue)}
+                  />
                 </View>
-                <View style={styles.row}>
-                  <View style={[styles.input, styles.pickerContainer]}>
-                    <GenericPicker
-                      selectedValue={materiales}
-                      onValueChange={itemValue => setMateriales(itemValue)}
-                      items={materialOptions}
-                    />
-                  </View>
+                <View>
+                  <DropdownComponent
+                    selectedValue={materiales}
+                    data={materialOptions}
+                    placeholder={'Materiales'}
+                    onSelect={itemValue => setMateriales(itemValue)}
+                  />
                 </View>
                 <Divider />
                 <View style={{alignItems: 'flex-end', display: 'flex'}}>
@@ -197,6 +196,8 @@ export const EppsAddScreen = ({navigation}) => {
                     }}>
                     Últimos materiales entregados ( {arrayEpps.length} )
                   </Text>
+                </View>
+                <View>
                   {arrayEpps.map((chunk, index) => (
                     <View key={index}>{renderItem(chunk)}</View>
                   ))}
@@ -209,52 +210,3 @@ export const EppsAddScreen = ({navigation}) => {
     </>
   );
 };
-
-const styles = StyleSheet.create({
-  scrollContainer: {
-    flexGrow: 1,
-  },
-  container: {
-    flex: 1,
-  },
-  card: {},
-  cardContent: {
-    borderRadius: 0,
-    elevation: 0,
-    height: '100%',
-  },
-  row: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginBottom: 8, // Añade espacio entre las filas
-  },
-  inputContainer: {
-    marginBottom: 16, // Espacio entre cada input
-  },
-  label: {
-    fontSize: 14,
-    fontWeight: 'bold',
-    marginBottom: 4, // Espacio entre el label y el input
-  },
-  input: {
-    flex: 1,
-    marginRight: 3,
-    marginBottom: 10,
-    backgroundColor: 'white',
-  },
-  pickerContainer: {
-    borderWidth: 0,
-    borderColor: 'light',
-    borderRadius: 4,
-    marginTop: 6,
-  },
-  picker: {
-    height: 56, // Ajusta la altura del picker para que coincida con la de los TextInput
-    backgroundColor: 'transparent',
-    color: 'black',
-    display: 'flex',
-  },
-  mt_6: {
-    marginTop: 6,
-  },
-});

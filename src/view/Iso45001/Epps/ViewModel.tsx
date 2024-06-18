@@ -6,13 +6,12 @@ const EppsAddViewModel = ({}) => {
   const [selectedRazon, setSelectedRazon] = useState('');
   const [actividades, setonActividades] = useState('');
   const [materiales, setMateriales] = useState('');
-  const [sede, setSede] = useState('');
-  const [solicitante, setSolicitante] = useState('');
+  const [sede, setSede] = useState('Sede Demo');
+  const [solicitante, setSolicitante] = useState('Sol. Demo');
   const [area, setArea] = useState('');
   const [arrayEpps, setArrayEpps] = useState<epps[]>([]);
   const [error, setError] = useState('');
   const navigation = useNavigation();
-
   const navigationHome = () => {
     navigation.navigate('HomeScreen');
   };
@@ -34,8 +33,6 @@ const EppsAddViewModel = ({}) => {
     setSelectedRazon('');
     setonActividades('');
     setMateriales('');
-    setSede('');
-    setSolicitante('');
     setArea('');
   };
 

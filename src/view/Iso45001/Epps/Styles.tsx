@@ -1,101 +1,51 @@
-import {Dimensions, StyleSheet} from 'react-native';
-import {RFPercentage, RFValue} from 'react-native-responsive-fontsize';
-import {MyColor} from '../../../theme/AppTheme';
+import {StyleSheet} from 'react-native';
 
 const EppsStyles = StyleSheet.create({
-  titleScreen: {
-    fontSize: RFValue(20, 500),
-    textAlign: 'center',
-    color: MyColor.black,
-    fontWeight: 'bold',
+  scrollContainer: {
+    flexGrow: 1,
   },
   container: {
-    flex: 2,
-    backgroundColor: MyColor.home,
-    marginVertical: 10,
-    borderRadius: 10,
-    shadowColor: '#000',
-    shadowOffset: {width: 0, height: 4}, // Ajustado para sombra más desvanecida
-    shadowOpacity: 0.5, // Más desvanecida
-    shadowRadius: 1, // Radio mayor para un desenfoque más suave
-    // Propiedad para la sombra en Android
-    elevation: 15,
-  },
-  container2: {
     flex: 1,
-    borderRadius: 10,
-    marginVertical: 10,
   },
-  textEps: {
-    color: MyColor.black,
-    fontSize: RFValue(12, 500),
-  },
-  contentContainer: {
-    padding: 10,
-  },
-
-  pickerContainer: {
-    borderBottomWidth: 2,
-    borderBottomColor: MyColor.primary,
-  },
-  placeholder: {
-    color: '#888', // Color gris para simular el placeholder
-  },
-  padPicker: {
-    marginBottom: 5,
-  },
-  buttonContainer: {
-    justifyContent: 'center',
-    flexDirection: 'row',
-
-    borderRadius: 5,
-    overflow: 'hidden',
-  },
-
-  btnContinue: {
-    backgroundColor: MyColor.primary,
-    marginHorizontal: 2,
-    marginTop: 30,
-    padding: 15,
-    height: 50,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 10,
-  },
-  btnCan: {
-    backgroundColor: MyColor.home,
-    marginHorizontal: 2,
-    marginTop: 30,
-    padding: 15,
-    height: 50,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 10,
-  },
-  textBtn: {
-    fontWeight: 'bold',
-    fontSize: RFValue(12, 580),
-    marginHorizontal: 20,
-    color: MyColor.home,
-  },
-  textCanBtn: {
-    fontWeight: 'bold',
-    fontSize: RFValue(12, 580),
-    marginHorizontal: 20,
-    color: MyColor.black,
-  },
-  containerRes: {
-    flexGrow: 1,
-    justifyContent: 'center',
+  card: {},
+  cardContent: {
+    borderRadius: 0,
+    elevation: 0,
+    height: '100%',
   },
   row: {
-    flex: 1,
-    justifyContent: 'space-around',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 8, // Añade espacio entre las filas
   },
-  item: {
+  inputContainer: {
+    marginBottom: 16, // Espacio entre cada input
+  },
+  label: {
+    fontSize: 14,
+    fontWeight: 'bold',
+    marginBottom: 4, // Espacio entre el label y el input
+  },
+  input: {
     flex: 1,
-    margin: 1,
-    maxWidth: '100%'
+    marginRight: 3,
+    marginBottom: 10,
+    backgroundColor: 'white',
+  },
+  pickerContainer: {
+    borderWidth: 0,
+    borderColor: 'light',
+    borderRadius: 4,
+    marginTop: 6,
+  },
+  picker: {
+    height: 56, // Ajusta la altura del picker para que coincida con la de los TextInput
+    backgroundColor: 'transparent',
+    color: 'black',
+    display: 'flex',
+  },
+  mt_6: {
+    marginTop: 6,
   },
 });
 

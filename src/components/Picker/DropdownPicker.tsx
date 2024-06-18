@@ -1,99 +1,111 @@
-import React, {useState} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import React from 'react';
+import {View, StyleSheet} from 'react-native';
 import {Dropdown} from 'react-native-element-dropdown';
+import {Text} from 'react-native-paper';
+import {MyColor} from '../../theme/AppTheme';
 
-const data = [
-  {label: 'Item 1', value: '1'},
-  {label: 'Item 2', value: '2'},
-  {label: 'Item 3', value: '3'},
-  {label: 'Item 4', value: '4'},
-  {label: 'Item 5', value: '5'},
-  {label: 'Item 6', value: '6'},
-  {label: 'Item 7', value: '7'},
-  {label: 'Item 8', value: '8'},
-];
+interface DropdownItem {
+  label: string;
+  value: string;
+}
 
-const DropdownComponent = () => {
-  const [value, setValue] = useState(null);
-  const [isFocus, setIsFocus] = useState(false);
+interface GenericDropdownProps {
+  selectedValue;
+  data: DropdownItem[];
+  placeholder?: string;
+  onSelect: (value: string) => void;
+}
+
+const GenericDropdown: React.FC<GenericDropdownProps> = ({
+  selectedValue,
+  data = [],
+  placeholder = 'Select an option',
+  onSelect,
+}) => {
+  const [isFocus, setIsFocus] = React.useState(false);
+
+  const handleSelect = (item: DropdownItem) => {
+    //setValue(item.value);
+    onSelect(item.value);
+    setIsFocus(false);
+  };
 
   const renderLabel = () => {
-    if (value || isFocus) {
+    if (selectedValue || isFocus) {
       return (
-        <Text style={[styles.label, isFocus && {color: 'blue'}]}>
-          Razon
+        <Text style={[styles.label, isFocus && {color: MyColor.primaryBlue}]}>
+          {placeholder}
         </Text>
       );
     }
     return null;
   };
-
   return (
     <View style={styles.container}>
       {renderLabel()}
       <Dropdown
-        style={[styles.dropdown, isFocus && {borderColor: 'blue'}]}
+        style={styles.dropdown}
+        placeholder={!isFocus ? placeholder : ' '}
         placeholderStyle={styles.placeholderStyle}
         selectedTextStyle={styles.selectedTextStyle}
         inputSearchStyle={styles.inputSearchStyle}
         iconStyle={styles.iconStyle}
+        itemContainerStyle={styles.itemContainerStyle}
+        itemTextStyle={styles.itemTextStyle}
         data={data}
         search
         maxHeight={300}
         labelField="label"
         valueField="value"
-        placeholder={!isFocus ? 'Select item' : '...'}
         searchPlaceholder="Buscar..."
-        value={value}
+        value={selectedValue}
+        onChange={handleSelect}
         onFocus={() => setIsFocus(true)}
         onBlur={() => setIsFocus(false)}
-        onChange={item => {
-          setValue(item.value);
-          setIsFocus(false);
-        }}
-        /* renderLeftIcon={() => (
-          <AntDesign
-            style={styles.icon}
-            color={isFocus ? 'blue' : 'black'}
-            name="Safety"
-            size={20}
-          />
-        )} */
       />
     </View>
   );
 };
 
-export default DropdownComponent;
-
 const styles = StyleSheet.create({
-  container: {
-    backgroundColor: 'white',
-  },
-  dropdown: {
-    height: 50,
-    borderColor: 'gray',
-    borderWidth: 2,
-    borderRadius: 4,
-    paddingHorizontal: 8,
-  },
-  icon: {
-    marginRight: 5,
-  },
   label: {
     position: 'absolute',
     backgroundColor: 'white',
-    left: 22,
-    top: 8,
+    left: 6,
+    top: 0,
     zIndex: 999,
-    paddingHorizontal: 8,
-    fontSize: 14,
+    paddingHorizontal: 5,
+    fontSize: 12,
+  },
+  container: {
+    padding: 0,
+    marginBottom: 12,
+  },
+  dropdown: {
+    height: 50,
+    backgroundColor: MyColor.white,
+    borderBottomWidth: 1,
+    borderBottomColor: MyColor.gray,
+    borderRadius: 4,
+    padding: 12,
+    shadowColor: MyColor.black,
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.2,
+    shadowRadius: 1.41,
+    elevation: 0,
   },
   placeholderStyle: {
-    fontSize: 16,
+    fontSize: 15,
+    color: MyColor.black,
+    opacity: 0.8,
   },
   selectedTextStyle: {
-    fontSize: 16,
+    fontSize: 14,
+    color: MyColor.black,
+    marginTop: 5,
   },
   iconStyle: {
     width: 20,
@@ -102,5 +114,22 @@ const styles = StyleSheet.create({
   inputSearchStyle: {
     height: 40,
     fontSize: 16,
+    color: MyColor.black,
+  },
+  item: {
+    padding: 10,
+  },
+  itemContainerStyle: {
+    color: MyColor.black,
+    backgroundColor: MyColor.white,
+  },
+  containerStyle: {
+    backgroundColor: MyColor.black,
+  },
+  itemTextStyle: {
+    fontSize: 16,
+    color: MyColor.black,
   },
 });
+
+export default GenericDropdown;

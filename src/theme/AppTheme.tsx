@@ -25,7 +25,9 @@ export const MyColor = {
   primaryTem: '#FACF85',
   blue: '#2980B9',
   bluelabel: '#4799e6',
-  primaryBlue: '#0886FF',
+  primaryBlue: '#1877F2',
+  white: '#ffffff',
+  primaryFb: '#005BC0',
 };
 
 export const MyStyles = StyleSheet.create({
